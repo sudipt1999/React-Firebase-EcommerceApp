@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect, createContext } from 'react';
 
 import CollectionItem from '../../components/collection-item/collection-item.component';
 
@@ -6,10 +6,23 @@ import CollectionsContext from '../../contexts/collections/collections.context';
 
 import './collection.styles.scss';
 
-const CollectionPage = ({ match }) => {
-  const collections = useContext(CollectionsContext);
-  const collection = collections[match.params.collectionId];
-  const { title, items } = collection;
+import axios from 'axios'
+import keys from '../../keys'
+
+const CollectionPage = ({ match }) => {  
+  const INITIAL_STATE = useContext(CollectionsContext);
+  const [collections, setCollections] = useState(INITIAL_STATE);
+  
+  
+  useEffect(() => {
+    axios.get(`${keys.url}collection`)
+      .then(data => setCollections(data.data))
+      .catch(() => setCollections(INITIAL_STATE))
+  },[INITIAL_STATE])
+
+  const collection = collections[match.params.collectionId] || {items: []};
+  const items = collection.items || [];
+  const title = String(match.params.collectionId).toUpperCase()
 
   return (
     <div className='collection-page'>
