@@ -6,6 +6,7 @@ import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 import CurrentUserContext from '../../contexts/current-user/current-user.context';
 import { CartContext } from '../../providers/cart/cart.provider';
+import { ReactComponent as GithubIcon } from '../../assets/github.svg'
 
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 
@@ -21,6 +22,9 @@ const Header = () => {
         <Logo className='logo' />
       </Link>
       <div className='options'>
+        <a target="_blank" className='option' href="https://github.com/sudipt1999/React-Firebase-EcommerceApp">
+            <GithubIcon className='github-icon' />
+        </a>
         <Link className='option' to='/shop'>
           SHOP
         </Link>
